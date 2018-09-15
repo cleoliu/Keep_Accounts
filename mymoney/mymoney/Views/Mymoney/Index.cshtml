@@ -6,13 +6,31 @@
 }
 
 <h2>Mymoney</h2>
-
+<td>
+    @Html.ActionLink("新增紀錄", "Create")
+</td>
+@if (ViewBag.ResultMessage != null) //判斷如果有訊息，則顯示。
+{
+    @Html.Label("info", (string)ViewBag.ResultMessage, new { @class = "text-info" })
+}
 <table class="table">
-    <thead><tr><td>編號</td><td>項目</td><td>金額</td><td>日期</td><td>支付方式</td></tr></thead>
+    <thead><tr><td>編輯</td><td>刪除</td><td>編號</td><td>項目</td><td>金額</td><td>日期</td><td>支付方式</td></tr></thead>
     <tbody>
-        @foreach (var pd in this.Model) /* 使用foreach將所有商品列出 */
+        @foreach (var pd in this.Model) //foreach商品列出
         {
             <tr>
+                <td>
+                    @Html.ActionLink(
+                        "編輯", "Edit", new { id = pd.Id }, new { @class = "btn btn-default" }
+                        )
+                </td>
+                <td>
+                    @using (@Html.BeginForm("Delete", "Mymoney", FormMethod.Post, new { @class = "Delete" }))
+                    {
+                        @Html.Hidden("id", pd.Id)
+                        <input type="submit" value="刪除" class="btn btn-default" />
+                    }
+                </td>
                 <td>@pd.Id</td>
                 <td>@pd.Item</td>
                 <td>@pd.Price</td>
