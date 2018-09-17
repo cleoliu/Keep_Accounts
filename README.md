@@ -7,3 +7,4 @@
 # Requirements
 - Windows
 - Microsoft.AspNet.Mvc 5.2.3
+- Microsoft SQL Server
